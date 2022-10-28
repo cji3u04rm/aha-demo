@@ -47,6 +47,11 @@ const CssTextField = styled(TextField)({
             borderColor: '#FFFFFF',
         },
     },
+    '&.active fieldset': {
+        borderRadius: '8px',
+        borderWidth: '3px',
+        borderColor: '#FFFFFF',
+    }
 });
 
 const CssIconButton = styled(IconButton)({
@@ -187,6 +192,7 @@ const Calendar = ({ title, value, setValue }: { title: string, value: string, se
                 InputProps={{ readOnly: true, style: { color: '#FFFFFF' } }}
                 value={value}
                 onFocus={handlePopoverOpen}
+                className={open ? 'active' : ''}
             />
             <Popper open={open} anchorEl={anchorEl} placement={'bottom-start'}>
                 <Stack bgcolor={'#1B1B1B'} width={320} boxShadow={5} mt={'16px'} borderRadius={'8px'}>
