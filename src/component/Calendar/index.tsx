@@ -112,7 +112,7 @@ const Calendar = ({ title, value, setValue }: { title: string, value: string, se
     const open = useMemo(() => !!anchorEl, [anchorEl])
     const [year, setYear] = useState(moment().year());
     const [month, setMonth] = useState(moment().month());
-    const [yearList, setYearList] = useState(Array.from({ length: 20 }, (_, i) => year - 1 + i))
+    const [yearList, setYearList] = useState(Array.from({ length: 40 }, (_, i) => year - 21 + i))
     const [isYear, setIsYear] = useState(false);
 
     const handlePopoverOpen = (event: React.FocusEvent<HTMLElement>) => {
@@ -168,11 +168,11 @@ const Calendar = ({ title, value, setValue }: { title: string, value: string, se
         let tempYearList = [...yearList]
 
         if (tempYearList.findIndex((item) => item === year) === -1) {
-            tempYearList = Array.from({ length: 20 }, (_, i) => year - 1 + i);
-            setYearList(Array.from({ length: 20 }, (_, i) => year + i))
+            tempYearList = Array.from({ length: 40 }, (_, i) => year - 21 + i);
+            setYearList(Array.from({ length: 40 }, (_, i) => year - 20 + i))
         }
-        for (let index = 0; index < 5; index++) {
-            res[index] = tempYearList.slice(index * 4, 4 * (index + 1))
+        for (let index = 0; index < 10; index++) {
+            res[index] = tempYearList.splice(0, 4)
         }
 
         return res
@@ -245,11 +245,12 @@ const Calendar = ({ title, value, setValue }: { title: string, value: string, se
                                     )}
                                 </Stack>)}
                         </Stack> :
-                            <Stack spacing={3} py={1} px={2} pb={2}>
+                            <Stack spacing={3} py={1} px={2} pb={2} maxHeight={200} overflow='auto'>
                                 {yearArr(year).map((item, index) =>
                                     <Stack key={index} direction={'row'} justifyContent={'space-between'} >
                                         {item.map((itemYear =>
                                             <CssYearBox
+                                                key={itemYear}
                                                 justifyItems={'center'}
                                                 alignItems={'center'}
                                                 className={itemYear === year ? 'select-year' : ''}
